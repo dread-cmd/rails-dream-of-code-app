@@ -1,0 +1,158 @@
+doc-rails(dev)> Enrollment.find_by({ id:5 })
+  Enrollment Load (15.3ms)  SELECT "enrollments".* FROM "enrollments" WHERE "enrollments"."id" = 5 LIMIT 1 /*application='DocRails'*/
+=> #<Enrollment:0x00000001065b5020 id: 5, course_id: 1, student_id: 5, final_grade: "completed", created_at: "2025-03-13 20:29:41.257708000 +0000", updated_at: "2025-03-13 20:29:41.257708000 +0000">
+doc-rails(dev)* enrollments.each do |enrollment| 
+doc-rails(dev)*   puts enrollment.student_id  
+doc-rails(dev)> end
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+=> 
+[#<Enrollment:0x00000001030b3480 id: 71, course_id: 5, student_id: 41, final_grade: "completed", created_at: "2025-03-13 20:29:42.306550000 +0000", updated_at: "2025-03-13 20:29:42.306550000 +0000">,
+ #<Enrollment:0x00000001030b3340 id: 72, course_id: 5, student_id: 42, final_grade: "completed", created_at: "2025-03-13 20:29:42.326449000 +0000", updated_at: "2025-03-13 20:29:42.326449000 +0000">,
+ #<Enrollment:0x00000001030b3200 id: 73, course_id: 5, student_id: 43, final_grade: nil, created_at: "2025-03-13 20:29:42.345060000 +0000", updated_at: "2025-03-13 20:29:42.345060000 +0000">,
+ #<Enrollment:0x00000001030b30c0 id: 74, course_id: 5, student_id: 44, final_grade: "completed", created_at: "2025-03-13 20:29:42.363015000 +0000", updated_at: "2025-03-13 20:29:42.363015000 +0000">,
+ #<Enrollment:0x00000001030b2f80 id: 75, course_id: 5, student_id: 45, final_grade: "completed", created_at: "2025-03-13 20:29:42.381292000 +0000", updated_at: "2025-03-13 20:29:42.381292000 +0000">,
+ #<Enrollment:0x00000001030b2e40 id: 76, course_id: 5, student_id: 46, final_grade: nil, created_at: "2025-03-13 20:29:42.399001000 +0000", updated_at: "2025-03-13 20:29:42.399001000 +0000">,
+ #<Enrollment:0x00000001030b2d00 id: 77, course_id: 5, student_id: 47, final_grade: "completed", created_at: "2025-03-13 20:29:42.418221000 +0000", updated_at: "2025-03-13 20:29:42.418221000 +0000">,
+ #<Enrollment:0x00000001030b2bc0 id: 78, course_id: 5, student_id: 48, final_grade: "completed", created_at: "2025-03-13 20:29:42.437200000 +0000", updated_at: "2025-03-13 20:29:42.437200000 +0000">,
+ #<Enrollment:0x00000001030b2a80 id: 79, course_id: 5, student_id: 49, final_grade: nil, created_at: "2025-03-13 20:29:42.454996000 +0000", updated_at: "2025-03-13 20:29:42.454996000 +0000">,
+ #<Enrollment:0x00000001030b2940 id: 80, course_id: 5, student_id: 50, final_grade: "completed", created_at: "2025-03-13 20:29:42.472780000 +0000", updated_at: "2025-03-13 20:29:42.472780000 +0000">]
+doc-rails(dev)> Student.find_by id: 50
+  Student Load (1.9ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 50 LIMIT 1 /*application='DocRails'*/
+=> #<Student:0x00000001065b84a0 id: 50, first_name: "Arnoldo", last_name: "Morissette", email: "[FILTERED]", created_at: "2025-03-13 20:29:42.463211000 +0000", updated_at: "2025-03-13 20:29:42.463211000 +0000">
+doc-rails(dev)> student_two = Student.find_by id: 50
+  Student Load (0.1ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 50 LIMIT 1 /*application='DocRails'*/
+=> #<Student:0x00000001065b11a0 id: 50, first_name: "Arnoldo", last_name: "Morissette", email: "[FILTERED]", created_at: "2025-03-13 20:29:42.463211000 +0000", updated_at: "2025-03-13 20:29:42.463211000 +0000">
+doc-rails(dev)> puts student_two.id.to_s + "," + student.email 
+50,tyler@lehner.example
+=> nil
+
+
+Student
+doc-rails(dev)* enrollments.each do |enrollment| 
+    doc-rails(dev)*   puts enrollment 
+    doc-rails(dev)> end
+      Enrollment Load (0.2ms)  SELECT "enrollments".* FROM "enrollments" WHERE "enrollments"."id" = 5 /*application='DocRails'*/
+    #<Enrollment:0x0000000105959b00>
+    => [#<Enrollment:0x0000000105959b00 id: 5, course_id: 1, student_id: 5, final_grade: "completed", created_at: "2025-03-13 20:29:41.257708000 +0000", updated_at: "2025-03-13 20:29:41.257708000 +0000">]
+    doc-rails(dev)* enrollments.each do |enrollment| 
+    doc-rails(dev)*   puts enrollment.student_id  
+    doc-rails(dev)> end
+    5
+    => [#<Enrollment:0x0000000105959b00 id: 5, course_id: 1, student_id: 5, final_grade: "completed", created_at: "2025-03-13 20:29:41.257708000 +0000", updated_at: "2025-03-13 20:29:41.257708000 +0000">]
+    doc-rails(dev)> enrollments = Enrollment.where({ course_id:5 })
+      Enrollment Load (0.2ms)  SELECT "enrollments".* FROM "enrollments" WHERE "enrollments"."course_id" = 5 /* loading for pp */ LIMIT 11 /*application='DocRails'*/
+    => 
+    [#<Enrollment:0x00000001065b0b60 id: 71, course_id: 5, student_id: 41, final_grade: "completed", created_at: "2025-03-13 20:29:42.306550000 +0000", updated_at: "2025-03-13 20:29:42.306550000 +0000">,
+    ...
+    doc-rails(dev)* enrollments.each do |enrollment| 
+    doc-rails(dev)*   puts enrollment.student_id  
+    doc-rails(dev)> end
+      Enrollment Load (0.2ms)  SELECT "enrollments".* FROM "enrollments" WHERE "enrollments"."course_id" = 5 /*application='DocRails'*/
+    41
+    42
+    43
+    44
+    45
+    46
+    47
+    48
+    49
+    50
+    => 
+    [#<Enrollment:0x00000001030b3480 id: 71, course_id: 5, student_id: 41, final_grade: "completed", created_at: "2025-03-13 20:29:42.306550000 +0000", updated_at: "2025-03-13 20:29:42.306550000 +0000">,
+     #<Enrollment:0x00000001030b3340 id: 72, course_id: 5, student_id: 42, final_grade: "completed", created_at: "2025-03-13 20:29:42.326449000 +0000", updated_at: "2025-03-13 20:29:42.326449000 +0000">,
+     #<Enrollment:0x00000001030b3200 id: 73, course_id: 5, student_id: 43, final_grade: nil, created_at: "2025-03-13 20:29:42.345060000 +0000", updated_at: "2025-03-13 20:29:42.345060000 +0000">,
+     #<Enrollment:0x00000001030b30c0 id: 74, course_id: 5, student_id: 44, final_grade: "completed", created_at: "2025-03-13 20:29:42.363015000 +0000", updated_at: "2025-03-13 20:29:42.363015000 +0000">,
+     #<Enrollment:0x00000001030b2f80 id: 75, course_id: 5, student_id: 45, final_grade: "completed", created_at: "2025-03-13 20:29:42.381292000 +0000", updated_at: "2025-03-13 20:29:42.381292000 +0000">,
+     #<Enrollment:0x00000001030b2e40 id: 76, course_id: 5, student_id: 46, final_grade: nil, created_at: "2025-03-13 20:29:42.399001000 +0000", updated_at: "2025-03-13 20:29:42.399001000 +0000">,
+     #<Enrollment:0x00000001030b2d00 id: 77, course_id: 5, student_id: 47, final_grade: "completed", created_at: "2025-03-13 20:29:42.418221000 +0000", updated_at: "2025-03-13 20:29:42.418221000 +0000">,
+     #<Enrollment:0x00000001030b2bc0 id: 78, course_id: 5, student_id: 48, final_grade: "completed", created_at: "2025-03-13 20:29:42.437200000 +0000", updated_at: "2025-03-13 20:29:42.437200000 +0000">,
+     #<Enrollment:0x00000001030b2a80 id: 79, course_id: 5, student_id: 49, final_grade: nil, created_at: "2025-03-13 20:29:42.454996000 +0000", updated_at: "2025-03-13 20:29:42.454996000 +0000">,
+     #<Enrollment:0x00000001030b2940 id: 80, course_id: 5, student_id: 50, final_grade: "completed", created_at: "2025-03-13 20:29:42.472780000 +0000", updated_at: "2025-03-13 20:29:42.472780000 +0000">]
+    doc-rails(dev)> Student.find_by id:50  
+      Student Load (0.2ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 50 LIMIT 1 /*application='DocRails'*/
+    => #<Student:0x000000010625b758 id: 50, first_name: "Arnoldo", last_name: "Morissette", email: "[FILTERED]", created_at: "2025-03-13 20:29:42.463211000 +0000", updated_at: "2025-03-13 20:29:42.463211000 +0000">
+    doc-rails(dev)> Student.find_by id: 49
+      Student Load (0.2ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 49 LIMIT 1 /*application='DocRails'*/
+    => #<Student:0x00000001065b1a60 id: 49, first_name: "Hong", last_name: "Upton", email: "[FILTERED]", created_at: "2025-03-13 20:29:42.445596000 +0000", updated_at: "2025-03-13 20:29:42.445596000 +0000">
+    doc-rails(dev)> Student.find_by id: 49 = student
+    /Users/Roberto/.rbenv/versions/3.2.4/lib/ruby/gems/3.2.0/gems/irb-1.14.3/lib/irb.rb:1262:in `full_message': (doc-rails):23: syntax error, unexpected '=', expecting end-of-input (SyntaxError)
+    Student.find_by id: 49 = student
+                           ^
+    
+    doc-rails(dev)> student = Student.find_by id:49
+      Student Load (0.2ms)  SELECT "students".* FROM "students" WHERE "students"."id" = 49 LIMIT 1 /*application='DocRails'*/
+    => #<Student:0x00000001065b6560 id: 49, first_name: "Hong", last_name: "Upton", email: "[FILTERED]", created_at: "2025-03-13 20:29:42.445596000 +0000", updated_at: "2025-03-13 20:29:42.445596000 +0000">
+    doc-rails(dev)> student.id
+    => 49
+    doc-rails(dev)> student.name
+    (doc-rails):26:in `<top (required)>': undefined method `name' for #<Student id: 49, first_name: "Hong", last_name: "Upton", email: [FILTERED], created_at: "2025-03-13 20:29:42.445596000 +0000", updated_at: "2025-03-13 20:29:42.445596000 +0000"> (NoMethodError)
+    doc-rails(dev)> student.first_name
+    => "Hong"
+    doc-rails(dev)> student.email
+    => "tyler@lehner.example"
+    doc-rails(dev)> puts student.email
+    tyler@lehner.example
+    => nil
+    doc-rails(dev)> puts student.id + "," + student.email
+    (doc-rails):30:in `+': String can't be coerced into Integer (TypeError)
+    
+    puts student.id + "," + student.email
+                      ^^^
+            from (doc-rails):30:in `<top (required)>'
+    doc-rails(dev)> puts student.id.to_s + "," + student.email
+    49,tyler@lehner.example
+
+    //MENTOR
+doc-rails(dev)> Mentor.find_by id: 25
+  Mentor Load (0.1ms)  SELECT "mentors".* FROM "mentors" WHERE "mentors"."id" = 25 LIMIT 1 /*application='DocRails'*/
+=> 
+#<Mentor:0x000000010543e440
+ id: 25,
+ first_name: "Salome",
+ last_name: "Kiehn",
+ email: "[FILTERED]",
+ max_concurrent_students: nil,
+ created_at: "2025-03-13 20:29:43.659663000 +0000",
+ updated_at: "2025-03-13 20:29:43.659663000 +0000">
+doc-rails(dev)> mentor_one = Mentor.find_by id: 25
+  Mentor Load (0.1ms)  SELECT "mentors".* FROM "mentors" WHERE "mentors"."id" = 25 LIMIT 1 /*application='DocRails'*/
+=> 
+#<Mentor:0x00000001065bb060
+...
+
+doc-rails(dev)> puts mentor_one.id.to_s + "," + mentor_one.email
+25,javier@flatley.example
+=> nil
+
+// MENTOR TWO
+doc-rails(dev)> Mentor.find_by id: 26
+  Mentor Load (1.0ms)  SELECT "mentors".* FROM "mentors" WHERE "mentors"."id" = 26 LIMIT 1 /*application='DocRails'*/
+=> 
+#<Mentor:0x00000001065b4120
+ id: 26,
+ first_name: "Daniel",
+ last_name: "Parker",
+ email: "[FILTERED]",
+ max_concurrent_students: nil,
+ created_at: "2025-03-13 20:29:43.701684000 +0000",
+ updated_at: "2025-03-13 20:29:43.701684000 +0000">
+doc-rails(dev)> mentor_two = Mentor.find_by id: 26
+  Mentor Load (0.1ms)  SELECT "mentors".* FROM "mentors" WHERE "mentors"."id" = 26 LIMIT 1 /*application='DocRails'*/
+=> 
+#<Mentor:0x00000001067353c8
+...
+doc-rails(dev)> puts mentor_two.id.to_s + "," + mentor_two.email
+26,peter_farrell@wyman-swift.example
+=> nil
+doc-rails(dev)> 
+ 
